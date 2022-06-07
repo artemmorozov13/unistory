@@ -1,0 +1,28 @@
+@import "/src/styles/style.scss";
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  padding-right: 30px;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  border-radius: 5px;
+  background-color: $color-white;
+}
+
+.content > .closeButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
