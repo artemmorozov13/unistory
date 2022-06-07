@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useTypedSelector } from "hooks/useTypeSelector";
 import { Navigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
@@ -8,13 +9,16 @@ import { Button, TextField } from "@mui/material";
 import useInput from "hooks/useInput";
 import { PostsActionType } from "types/posts";
 import { SinglePostType } from "types/singlePost";
+import ModalWindow from "components/modalWindow/ModalWindow";
 
 import s from "./postEdit.module.scss";
 
 const PostEdit: React.FC = () => {
   const { id } = useParams();
+  const [isDelete, setDelete] = useState(false);
   const dispatch = useDispatch();
   const inputHook = useInput;
+
   const postsWithOutCurrent: Array<SinglePostType> = [];
   let currentPost: SinglePostType | null = null;
 
@@ -36,6 +40,12 @@ const PostEdit: React.FC = () => {
   const newContent = inputHook(content);
 
   const removePost = () => {
+    setDelete(true);
+  };
+
+  const canelDelete = () => setDelete(false);
+
+  const confirmDelete = () => {
     dispatch({
       type: PostsActionType.UPDATE_POSTS,
       payload: postsWithOutCurrent,
@@ -77,15 +87,28 @@ const PostEdit: React.FC = () => {
         />
       </div>
       <div className={s.actions}>
-        <Button variant="contained" color="error">
-          <Link onClick={removePost} className={s.link} to="/">
-            Удалить
-          </Link>
+        <Button onClick={removePost} variant="contained" color="error">
+          Удалить
         </Button>
         <Button variant="contained" onClick={applyChanges}>
           Сохранить
         </Button>
       </div>
+      <ModalWindow isOpen={isDelete} onClose={() => setDelete(false)}>
+        <div className={s.confirmMessage}>
+          Вы действительно хотите удалить запись?
+        </div>
+        <div className={s.modalActions}>
+          <Button onClick={canelDelete} variant="contained" color="warning">
+            Отмена
+          </Button>
+          <Button onClick={confirmDelete} variant="contained" color="error">
+            <Link className={s.link} to="/">
+              Удалить
+            </Link>
+          </Button>
+        </div>
+      </ModalWindow>
     </>
   );
 };
