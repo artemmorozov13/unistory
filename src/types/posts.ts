@@ -7,6 +7,7 @@ export interface PostsState {
 export enum PostsActionType {
   CREATE_NEW_POST = "CREATE_NEW_POST",
   UPDATE_POSTS = "UPDATE_POSTS",
+  SET_POSTS = "SET_POSTS",
 }
 
 interface CreateNewPost {
@@ -17,5 +18,9 @@ interface RemovePost {
   type: PostsActionType.UPDATE_POSTS;
   payload: string;
 }
+interface SetPosts {
+  type: PostsActionType.SET_POSTS;
+  payload: any;
+}
 
-export type PostAction = CreateNewPost | RemovePost;
+export type PostAction = CreateNewPost | RemovePost | SetPosts;

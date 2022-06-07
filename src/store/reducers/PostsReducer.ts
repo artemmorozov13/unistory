@@ -1,7 +1,14 @@
 import { PostAction, PostsActionType, PostsState } from "types/posts";
 
 const initialState: PostsState = {
-  posts: [{ id: 1, title: "title", content: "content" }],
+  posts: [
+    { id: 1, title: "title", content: "content" },
+    { id: 2, title: "title", content: "content" },
+    { id: 3, title: "title", content: "content" },
+    { id: 4, title: "title", content: "content" },
+    { id: 5, title: "title", content: "content" },
+    { id: 6, title: "title", content: "content" },
+  ],
 };
 
 const PostReducer = (state = initialState, action: PostAction): PostsState => {
@@ -14,6 +21,11 @@ const PostReducer = (state = initialState, action: PostAction): PostsState => {
     case PostsActionType.UPDATE_POSTS:
       return {
         posts: [...action.payload],
+      };
+
+    case PostsActionType.SET_POSTS:
+      return {
+        posts: [...action.payload], //Доработать
       };
 
     default:

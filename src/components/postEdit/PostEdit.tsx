@@ -10,12 +10,14 @@ import useInput from "hooks/useInput";
 import { PostsActionType } from "types/posts";
 import { SinglePostType } from "types/singlePost";
 import ModalWindow from "components/modalWindow/ModalWindow";
+import { dataBase } from "localBase/LocalBase";
 
 import s from "./postEdit.module.scss";
 
 const PostEdit: React.FC = () => {
   const { id } = useParams();
   const [isDelete, setDelete] = useState(false);
+
   const dispatch = useDispatch();
   const inputHook = useInput;
 
@@ -23,6 +25,8 @@ const PostEdit: React.FC = () => {
   let currentPost: SinglePostType | null = null;
 
   const posts = useTypedSelector((state) => state.posts.posts);
+
+  console.log(posts);
 
   posts.filter((post: SinglePostType) => {
     if (post.id === Number(id)) {
@@ -50,6 +54,10 @@ const PostEdit: React.FC = () => {
       type: PostsActionType.UPDATE_POSTS,
       payload: postsWithOutCurrent,
     });
+    dataBase
+      .collection("posts")
+      .doc({ id: Number(id) })
+      .delete();
   };
 
   const applyChanges = () => {
@@ -60,11 +68,17 @@ const PostEdit: React.FC = () => {
       }
       return post;
     });
-    console.log(updatedPosts);
     dispatch({
       type: PostsActionType.UPDATE_POSTS,
       payload: updatedPosts,
     });
+    dataBase
+      .collection("posts")
+      .doc({ id: Number(id) })
+      .update({
+        title: newTitle.value,
+        content: newContent.value,
+      });
   };
 
   return (

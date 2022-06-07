@@ -6,6 +6,7 @@ import { Button, TextField } from "@mui/material";
 import useInput from "hooks/useInput";
 import ModalWindow from "components/modalWindow/ModalWindow";
 import { PostsActionType } from "types/posts";
+import { dataBase } from "localBase/LocalBase";
 
 import s from "./createPost.module.scss";
 
@@ -14,18 +15,23 @@ const CreatePost: React.FC = () => {
   const [error, setError] = useState("");
   const title = useInput("");
   const content = useInput("");
+
   const dispatch = useDispatch();
 
   const addNewPost = () => {
     if (title.value.trim() && content.value.trim()) {
+      const post = {
+        id: Math.floor(Math.random() * 100),
+        title: title.value,
+        content: content.value,
+      };
+
       dispatch({
         type: PostsActionType.CREATE_NEW_POST,
-        payload: {
-          id: new Date().getTime(),
-          title: title.value,
-          content: content.value,
-        },
+        payload: post,
       });
+      dataBase.collection("posts").add(post);
+
       title.resetValue();
       content.resetValue();
       setOpen(false);
