@@ -1,7 +1,5 @@
-interface SinglePost {
+export interface SinglePostType {
   id: number;
   title: string;
   content: string;
 }
-
-export type SinglePostType = SinglePost;

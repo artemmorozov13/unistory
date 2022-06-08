@@ -1,5 +1,3 @@
-import { SinglePostType } from "./singlePost";
-
 export interface PostsState {
   posts: Array<any>;
 }

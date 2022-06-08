@@ -6,13 +6,13 @@ import { Box, IconButton, Modal } from "@mui/material";
 
 import s from "./modalWindow.module.scss";
 
-interface CreatePostProps {
+interface ModalWindow {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
 }
 
-const ModalWindow: React.FC<CreatePostProps> = (props) => {
+const ModalWindow: React.FC<ModalWindow> = (props) => {
   const { children, isOpen, onClose } = props;
 
   const [mounted, setMounted] = useState(false);

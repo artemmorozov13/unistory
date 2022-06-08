@@ -19,7 +19,7 @@ const PostEdit: React.FC = () => {
   const dispatch = useDispatch();
   const inputHook = useInput;
 
-  const postsWithOutCurrent: Array<SinglePostType> = [];
+  const postsWithOutCurrent: SinglePostType[] = [];
   let currentPost: SinglePostType | null = null;
 
   const posts = useTypedSelector((state) => state.posts.posts);
@@ -32,18 +32,9 @@ const PostEdit: React.FC = () => {
     }
   });
 
-  if (!currentPost) return <Navigate to="/404" />;
-
-  const { title, content } = currentPost;
-
-  const newTitle = inputHook(title);
-  const newContent = inputHook(content);
-
   const removePost = () => {
     setDelete(true);
   };
-
-  const canelDelete = () => setDelete(false);
 
   const confirmDelete = () => {
     dispatch({
@@ -60,12 +51,18 @@ const PostEdit: React.FC = () => {
       }
       return post;
     });
-    console.log(updatedPosts);
     dispatch({
       type: PostsActionType.UPDATE_POSTS,
       payload: updatedPosts,
     });
   };
+
+  if (!currentPost) return <Navigate to="/404" />;
+
+  const { title, content } = currentPost;
+
+  const newTitle = inputHook(title);
+  const newContent = inputHook(content);
 
   return (
     <>
@@ -99,7 +96,11 @@ const PostEdit: React.FC = () => {
           Вы действительно хотите удалить запись?
         </div>
         <div className={s.modalActions}>
-          <Button onClick={canelDelete} variant="contained" color="warning">
+          <Button
+            onClick={() => setDelete(false)}
+            variant="contained"
+            color="warning"
+          >
             Отмена
           </Button>
           <Button onClick={confirmDelete} variant="contained" color="error">
