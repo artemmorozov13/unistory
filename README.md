@@ -1,4 +1,26 @@
-# Getting Started with Create React App
+# Unistory LLC testing task
+
+This is the test task, perfome single page application post manager
+
+## Deploed project link
+
+https://unistorytesttaskbyartem.web.app
+
+## In this project I used
+1. React
+2. Redux
+3. TypeScript
+4. React Router
+5. Material UI
+6. Node-Sass
+7. Firebase ( for deploy )
+8. Prettier
+
+## Contact Information
+
+https://t.me/morozov4
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
