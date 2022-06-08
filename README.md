@@ -4,7 +4,6 @@ This is the test task, perfome single page application post manager
 
 ## Deploed project link
 
-https://unistorytesttaskbyartem.web.app
 
 ## In this project I used
 1. React
